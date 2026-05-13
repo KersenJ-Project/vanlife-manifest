@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vanlife-api
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: vanlife-api
+  template:
+    metadata:
+      labels:
+        app: vanlife-api
+    spec:
+      containers:
+        - name: vanlife-api
+          image: nyle890/414-vanlife-api:latest
+          env:
+            - name: PORT
+              value: ${PORT}
+            - name: DB_HOST
+              value: "10.10.3.9"
+            - name: DB_PORT
+              value: "3306"
+            - name: DB_NAME
+              value: ${DB_NAME}
+            - name: DB_USER
+              value: ${DB_USER}
+            - name: DB_PASSWORD
+              value: ${DB_PASSWORD}
+          ports:
+            - containerPort: 3000
